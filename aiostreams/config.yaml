@@ -1,11 +1,10 @@
-name: AIOStreams
-version: "2.6.1"            # bump when you update the image tag
-slug: aiostreams
-description: >
-  Self-hosted Stremio super-addon that aggregates many providers into one endpoint.
-url: https://github.com/Viren070/AIOStreams
-arch:
-  - aarch64                 # Raspberry Pi 5 & other 64-bit ARM boards
+ name: AIOStreams
+-version: "v2.6.1"        # keep whatever the latest tag is
+-image: ghcr.io/viren070/aiostreams:v2.6.1
++version: "2.6.1"         # or "v2.6.1" — just match the upstream tag
++image: ghcr.io/viren070/aiostreams
+ arch:
+   - aarch64
 startup: application
 boot: auto
 image: ghcr.io/viren070/aiostreams:v2.6.1
