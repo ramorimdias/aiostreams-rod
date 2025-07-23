@@ -2,7 +2,7 @@ name: AIOStreams
 slug: aiostreams
 description: >
   Self-hosted Stremio super-addon that aggregates many providers into one endpoint.
-version: "2.6.1"              # must match the upstream tag
+version: "latest"              # must match the upstream tag
 url: https://github.com/Viren070/AIOStreams
 image: ghcr.io/viren070/aiostreams  # ← NO tag here!
 arch:
