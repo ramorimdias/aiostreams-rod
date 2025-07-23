@@ -1,13 +1,14 @@
- name: AIOStreams
--version: "v2.6.1"        # keep whatever the latest tag is
--image: ghcr.io/viren070/aiostreams:v2.6.1
-+version: "2.6.1"         # or "v2.6.1" — just match the upstream tag
-+image: ghcr.io/viren070/aiostreams
- arch:
-   - aarch64
+name: AIOStreams
+slug: aiostreams
+description: >
+  Self-hosted Stremio super-addon that aggregates many providers into one endpoint.
+version: "2.6.1"              # must match the upstream tag
+url: https://github.com/Viren070/AIOStreams
+image: ghcr.io/viren070/aiostreams  # ← NO tag here!
+arch:
+  - aarch64
 startup: application
 boot: auto
-image: ghcr.io/viren070/aiostreams:v2.6.1
 ports:
   "3000/tcp": 8469
 ports_description:
