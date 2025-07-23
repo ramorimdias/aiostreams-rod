@@ -1,44 +1,21 @@
-name: Sync AIOStreams tag
-
-on:
-  schedule:           # check once a day
-    - cron: '0 3 * * *'
-  workflow_dispatch:  # …or run manually
-
-jobs:
-  bump:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      # 1️⃣ Fetch the newest upstream release/tag
-      - name: Get latest tag from upstream
-        id: upstream
-        run: |
-          TAG=$(curl -s https://api.github.com/repos/Viren070/AIOStreams/releases/latest \
-                | jq -r .tag_name)
-          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-
-      # 2️⃣ Read the current version in your add-on
-      - name: Read current add-on version
-        id: current
-        run: |
-          CURRENT=$(grep '^version:' aiostreams/config.yaml | awk '{print $2}' | tr -d '"')
-          echo "current=$CURRENT" >> "$GITHUB_OUTPUT"
-
-      # 3️⃣ If they differ, rewrite config.yaml & push
-      - name: Update config.yaml
-        if: steps.upstream.outputs.tag != steps.current.outputs.current
-        run: |
-          NEW=${{ steps.upstream.outputs.tag }}
-          yq -i '
-            .version = "'$NEW'" |
-            .image   = "ghcr.io/viren070/aiostreams:'$NEW'"' \
-            aiostreams/config.yaml
-          git config user.email "actions@github.com"
-          git config user.name  "github-actions"
-          git commit -am "ci: bump AIOStreams to $NEW"
-          git push
-    env:
-      # yq 4 is pre-installed on the GitHub runner
-      YQ_EVAL: 'true'
+name: AIOStreams
+version: "2.6.1"            # bump when you update the image tag
+slug: aiostreams
+description: >
+  Self-hosted Stremio super-addon that aggregates many providers into one endpoint.
+url: https://github.com/Viren070/AIOStreams
+arch:
+  - aarch64                 # Raspberry Pi 5 & other 64-bit ARM boards
+startup: application
+boot: auto
+image: ghcr.io/viren070/aiostreams:v2.6.1
+ports:
+  "3000/tcp": 8469
+ports_description:
+  "3000/tcp": "AIOStreams API / Web UI"
+webui: http://[HOST]:[PORT:3000]/
+map:
+  - type: share
+    read_only: false
+options: {}
+schema: {}
